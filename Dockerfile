@@ -1,11 +1,11 @@
-# Étape 1 : Build du projet avec Maven et Java 11
-FROM maven:3.8.6-eclipse-temurin-11 AS build
+# 1. Utiliser Maven avec JDK 17 pour le build
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 WORKDIR /app
 COPY . .
 RUN mvn clean package -DskipTests
 
-# Étape 2 : Exécution de l'application
-FROM eclipse-temurin:11-jre
+# 2. Utiliser JRE 17 pour l'exécution
+FROM eclipse-temurin:17-jre
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 
